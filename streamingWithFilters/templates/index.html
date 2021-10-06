@@ -1,0 +1,115 @@
+<html>
+  <head>
+    <META HTTP-EQUIV="refresh" CONTENT="30">
+    <title>Pi Video Surveillance</title>
+
+    <style>
+
+      .block {
+        display: inline-block;
+        max-width: 750;
+        max-height: 500;
+        vertical-align: top;
+      }
+
+      .btnSize
+      {
+        width: 100px;
+        height: 50px;
+      }
+
+      .centerup
+      {
+        margin-left: 105px;
+        margin-top: 2px;
+        margin-bottom: 6px;
+      }
+      .centerdown
+      {
+        margin-left: 105px;
+        margin-top: 6px;
+        
+      }
+      
+      #footer
+      {
+        position: relative;
+        float: bottom;
+        width: 200px;
+        height: 50px;
+        background-image: url('static/Images/rpi.png');
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+      }
+
+
+
+      h2.filter {
+        visibility: hidden;
+      }
+      </style>
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        var f = document.querySelector(".filter").textContent;
+
+        console.log(f);
+        $("input[name=options][value="+f+"]").prop('checked', true);
+      });
+    </script>
+
+    <script>
+      function AutoSubmit(){
+        document.getElementById("myForm").submit();
+      };
+    </script>
+
+  </head>
+  <body>
+    
+    <h1>Pi Video Surveillance</h1>
+   
+    <div class="block">
+    <img src="{{ url_for('video_feed') }}">
+
+    <h2 class="filter"> {{filt}}</h2>
+  </div>
+  <div class = "block">
+    <form method='POST' action='' id ="myForm">
+      <label> Filters: </label><br>
+
+      <input type="radio" class ="btnradio"  name="options" id="hsv" onclick="AutoSubmit();" value="hsv"> hsv </input>
+      <input type="radio" class ="btnradio"  name="options" id="xyz" onclick="AutoSubmit();" value="xyz"> xyz </input><br>
+      <input type="radio" class ="btnradio"  name="options" id="none" onclick="AutoSubmit();" value="none"> none </input>
+      <input type="radio" class ="btnradio"  name="options" id="gray" onclick="AutoSubmit();" value="gray"> gray </input><br>
+      <input type="radio" class ="btnradio"  name="options" id="canny" onclick="AutoSubmit();" value="canny"> canny </input>
+      <input type="radio" class ="btnradio"  name="options" id="cartoon" onclick="AutoSubmit();" value="cartoon"> cartoon </input><br>
+      <input type="radio" class ="btnradio"  name="options" id="hls" onclick="AutoSubmit();" value="hls"> hls </input>
+      <input type="radio" class ="btnradio"  name="options" id="pencil" onclick="AutoSubmit();" value="pencil"> pencil </input><br>
+      <input type="radio" class ="btnradio"  name="options" id="warm" onclick="AutoSubmit();" value="warm"> warm </input>
+      <input type="radio" class ="btnradio"  name="options" id="cool" onclick="AutoSubmit();" value="cool"> cool </input><br>
+      <input type="radio" class ="btnradio"  name="options" id="squares" onclick="AutoSubmit();" value="squares"> find squares </input>
+      <input type="radio" class ="btnradio"  name="options" id="mirror1" onclick="AutoSubmit();" value="mirror1"> mirror1 </input><br>
+      <input type="radio" class ="btnradio"  name="options" id="mirror2" onclick="AutoSubmit();" value="mirror2"> mirror2 </input>
+      <input type="radio" class ="btnradio"  name="options" id="mirror3" onclick="AutoSubmit();" value="mirror3"> mirror3 </input><br>
+      <input type="radio" class ="btnradio"  name="options" id="mirror4" onclick="AutoSubmit();" value="mirror4"> mirror4 </input>
+      <input type="radio" class ="btnradio"  name="options" id="mirror5" onclick="AutoSubmit();" value="mirror5"> mirror5 </input><br>
+      <input type="radio" class ="btnradio"  name="options" id="negative" onclick="AutoSubmit();" value="negative"> negative </input>
+      <input type="radio" class ="btnradio"  name="options" id="laplace" onclick="AutoSubmit();" value="laplace"> laplace </input><br>
+    </form>
+
+    <form method='POST' action='/move' id ="myForm">
+      <input type="submit" class="btnMove centerup btnSize" name="motion" id="moveUp" value="up" onclick="AutoSubmit();" > </input><br>
+      <input type="submit" class="btnMove btnSize" name="motion" id="moveCCW" value="left" onclick="AutoSubmit();" > </input>
+      <input type="submit" class="btnMove btnSize" name="motion" id="stop" value="stop" onclick="AutoSubmit();" > </input>
+      <input type="submit" class="btnMove btnSize" name="motion" id="moveCW" value="right" onclick="AutoSubmit();" > </input><br>
+      <input type="submit" class="btnMove centerdown btnSize" name="motion" id="moveDown" value="down" onclick="AutoSubmit();" > </input>
+    </form>
+  </div>
+  <div id ="footer" ></div>
+  </body>
+</html>
